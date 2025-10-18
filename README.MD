@@ -1,7 +1,7 @@
 
 # The OpenShift Reattachment Pattern: A Practical Guide
 
-This repository contains the practical steps and code examples for implementing the Reattachment Pattern for stateful applications on OpenShift, as discussed in the Red Hat Summit presentation "[Your Presentation Title Here]".
+This repository contains the practical steps and code examples for implementing the Reattachment Pattern for stateful applications on OpenShift, as discussed in the Red Hat Summit presentation "Disposable Clusters, Persistent Data: The Reattachment Pattern for Bulletproof OpenShift DR".
 
 The goal of this pattern is to decouple the lifecycle of an OpenShift cluster from the lifecycle of its data. This enables faster disaster recovery, safer cluster upgrades, and a more resilient operational model by treating clusters as disposable "cattle" while the data remains persistent.
 
@@ -29,7 +29,6 @@ Before decommissioning the old cluster, you would save the definitions. Existing
 
 PV
 
-Of course. Here is that information formatted into a clean, professional Markdown table. This format is perfect for a `README.md` file as it's easy to read and scan.
 
 ---
 
@@ -49,10 +48,6 @@ The following table details the specific fields to be removed and the reason for
 | **`.status`** | An entire block of data describing the PV's runtime status in the old cluster (e.g., `phase: Bound`). | The `status` of an object is managed by the control plane, not set by users. The new cluster will determine and report its own status for the PV. |
 
 By surgically removing these fields, you are left with a clean definition that preserves the most critical piece of information: the `spec.csi.volumeHandle`, which is the physical address of your data on the storage array.
-
-Of course. Here is the same professional Markdown table format for the `PersistentVolumeClaim` object, based on the fields your script is removing.
-
-I've also added a critical extra field (`spec.volumeName`) that must be removed for the binding process to work correctly in the new cluster.
 
 ---
 
