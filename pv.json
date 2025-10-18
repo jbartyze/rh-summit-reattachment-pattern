@@ -1,0 +1,37 @@
+{
+    "apiVersion": "v1",
+    "kind": "PersistentVolume",
+    "metadata": {
+        "finalizers": [
+            "kubernetes.io/pv-protection",
+            "external-attacher/csi-vsphere-vmware-com"
+        ],
+        "name": "pvc-<random-uid-assigned-by-OCP>"
+    },
+    "spec": {
+        "accessModes": [
+            "ReadWriteOnce"
+        ],
+        "capacity": {
+            "storage": "50Gi"
+        },
+        "claimRef": {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "name": "example-pvc-name-1",
+            "namespace": "acme-namespace-test"
+        },
+        "csi": {
+            "driver": "csi.vsphere.vmware.com",
+            "fsType": "ext4",
+            "volumeAttributes": {
+                "storage.kubernetes.io/csiProvisionerIdentity": "<identity-id>-csi.vsphere.vmware.com",
+                "type": "vSphere CNS Block Volume"
+            },
+            "volumeHandle": "<random-volume-id-assigned-by-vSphere-CSI-driver>"
+        },
+        "persistentVolumeReclaimPolicy": "Delete",
+        "storageClassName": "example-vsphere-csi-storage-class",
+        "volumeMode": "Filesystem"
+    }
+}
