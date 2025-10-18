@@ -1,0 +1,1 @@
+awk -F, 'NR > 1 { system("oc get pvc --namespace=\"" $1 "\" --no-headers=true -o json | jq '\''del(.items[].metadata.annotations)'\'' | jq '\''del(.items[].metadata.creationTimestamp)'\'' | jq '\''del(.items[].metadata.uid)'\'' | jq '\''del(.items[].metadata.resourceVersion)'\'' | jq '\''del(.items[].status)'\'' | tee pvc-" $1 ".json")}' namespace.csv

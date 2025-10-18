@@ -1,0 +1,10 @@
+# filename: namespace.yaml
+#
+# This manifest creates the namespace where the application and its storage
+# claims will be deployed in the new cluster.
+# This should be the first object applied during the reattachment process.
+#
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: acme-namespace-test
