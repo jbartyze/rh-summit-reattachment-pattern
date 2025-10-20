@@ -64,7 +64,6 @@ The following table details the specific fields to be removed.
 | **`.metadata.uid`** | The unique ID assigned by the old cluster's API server. | This ID is only unique within the old cluster's etcd. The new cluster must be allowed to generate its own UID. |
 | **`.metadata.resourceVersion`** | The internal versioning value used by the old cluster's control plane. | This is internal state from the old etcd and is meaningless to the new cluster. |
 | **`.status`** | The block of data describing the PVC's runtime status in the old cluster (e.g., `phase: Bound`, `capacity`). | The `status` is managed by the Kubernetes control plane. The new cluster will determine and report its own status for the PVC after binding. |
-| **`.spec.volumeName`** | The field that explicitly links the PVC to a specific `PersistentVolume` by name. | **(Critical)** This is the most important field to remove. By clearing it, you allow the new cluster's control plane to automatically find and bind to the correct static PV based on matching `storageClassName`, `accessModes`, and `resources.requests`. |
 
 After removing these fields, you are left with a clean, declarative request for storage. When you apply this manifest, the OpenShift control plane will find the sanitized static `PersistentVolume` you already created, validate that they match, and bind them together.
 
